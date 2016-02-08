@@ -1,5 +1,6 @@
 package com.example.student.bucketlist2;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,15 +25,8 @@ public class ListMainActivity extends AppCompatActivity {
         items.add("Test items 2");
         items.add("Test items 3");
 
-        ArrayAdapter<String> a = new ArrayAdapter<String>(
-                //The current context
-                this,
-                //The layout of the list item view
-                R.layout.complex_list_item,
-                //id of the text view
-                R.id.complex_list_item,
-                //Arraylist of data to be used in list
-                items);
+        ArrayList<customItem> customItems = customItem.getItems();
+        CustomItemAdapter a = new CustomItemAdapter(this, customItems);
 
         ListView listView = (ListView) findViewById(
                 R.id.bucket_list_view);
