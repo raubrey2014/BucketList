@@ -35,6 +35,16 @@ public class CustomItemAdapter extends ArrayAdapter<customItem>{
         return convertView;
     }
 
+    public boolean getChecked(int position){
+        customItem exampleItem = getItem(position);
+        return exampleItem.checked;
+    }
 
+    public String getTextString(int position){
+        return getItem(position).text;
+    }
 
+    public void setChecked(int position, boolean b){
+        getItem(position).setChecked(b);
+    }
 }

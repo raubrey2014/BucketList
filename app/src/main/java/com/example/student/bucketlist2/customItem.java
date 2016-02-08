@@ -21,5 +21,19 @@ public class customItem {
         return items;
     }
 
+    public String getText() {
+        return text;
+    }
+
+    public boolean getChecked(){
+        return this.checked;
+    }
+
+    public void setChecked(boolean b){
+        this.checked = b;
+
+    }
+
+
 
 }
