@@ -31,21 +31,61 @@ public class ListMainActivity extends AppCompatActivity {
         final ArrayList<customItem> customItems = customItem.getItems();
         customAdapter = new CustomItemAdapter(this, customItems);
 
-        ListView listView = (ListView) findViewById(
+        final ListView l = (ListView) findViewById(
                 R.id.bucket_list_view);
-        listView.setAdapter(customAdapter);
-        listView.setItemsCanFocus(true);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        l.setAdapter(customAdapter);
+        l.setItemsCanFocus(true);
+        l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 customAdapter.setChecked(position, true);
-                Log.i("On the fly onclick", "Item " + position + ": " +
+                Log.i("final", "Item " + position + ": " +
                         customAdapter.getItem(position).getChecked() + ", " +
                         customAdapter.getItem(position).getText());
 
             }
         });
+
+        Log.i("final", "First Visible: " + l.getFirstVisiblePosition()
+                + ", and Last: " + l.getLastVisiblePosition());
+
+        //This is how to wait for the UI to be ready
+        l.post(new Runnable() {
+            public void run() {
+                Log.i("real", "Value of Last position: " + Integer.toString(l.getLastVisiblePosition()));
+//                if (savedInstanceState != null) {
+//                    for (int i = 0; i < l.getLastVisiblePosition() - l.getFirstVisiblePosition(); i++) {
+//
+//                        if (savedInstanceState.getBoolean(Integer.toString(i))) {
+//                            Log.i("final", "Item " + i + ": has a set key value pair, is type :  ");
+//                            View v = (View) l.getChildAt(i);
+//                            //            Log.i("final", "Item " + i + ": ");
+//                            if (v == null) {
+//                                Log.i("final", "View IS DEAD ");
+//                            }
+//                            if (v instanceof LinearLayout) {
+//                                Log.i("final", "**Item " + i + ": is a linear layout");
+//
+//                                LinearLayout lindog = (LinearLayout) v;
+//                                for (int k = 0; k < lindog.getChildCount(); k++) {
+//                                    View v3 = (View) lindog.getChildAt(k);
+//                                    if (v3 instanceof CheckBox) {
+//                                        CheckBox checkBox = (CheckBox) v3;
+//                                        checkBox.setChecked(true);
+//                                    }
+//
+//                                }
+//                                //                CheckBox box = (CheckBox) lindog.getChildAt(1);
+//                                //                box.setChecked(true);
+//                                Log.i("Save State", "*&&&&&&&&&&&&&&&^%$#$%^&*(*&^%$#@#$ " + i);
+//                            }
+//                        }
+//                    }
+//                }
+            }
+        });
+
     }
     @Override
     protected void onStart() {
@@ -135,40 +175,40 @@ public class ListMainActivity extends AppCompatActivity {
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         ListView l = (ListView) findViewById(R.id.bucket_list_view);
-        if (l == null){
-            Log.i("final", "LIST IS DEAD ");
-        }
-        else{
-            Log.i("final", "LIST IS "+l.getFirstVisiblePosition() + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-        }
-        for (int i = 0; i < l.getCount(); i++) {
-
-            if (savedInstanceState.getBoolean(Integer.toString(i))) {
-                Log.i("final", "Item " + i + ": has a set key value pair, is type :  ");
-                Object v = l.getChildAt(i);
-//            Log.i("final", "Item " + i + ": ");
-                if (v == null){
-                    Log.i("final", "View IS DEAD ");
-                }
-                if (v instanceof LinearLayout) {
-                    Log.i("final", "**Item " + i + ": is a linear layout");
-
-                    LinearLayout lindog = (LinearLayout) v;
-                    for (int k = 0; k < lindog.getChildCount(); k++) {
-                        View v3 = (View) lindog.getChildAt(k);
-                        if (v3 instanceof CheckBox) {
-                            CheckBox checkBox = (CheckBox) v3;
-                            checkBox.setChecked(true);
-                        }
-
-                    }
-                    //                CheckBox box = (CheckBox) lindog.getChildAt(1);
-                    //                box.setChecked(true);
-                    Log.i("Save State", "*&&&&&&&&&&&&&&&^%$#$%^&*(*&^%$#@#$ " + i);
-                }
-            }
-        }
+//        if (l == null){
+//            Log.i("final", "LIST IS DEAD ");
+//        }
+//        else{
+//            Log.i("final", "LIST IS "+l.getFirstVisiblePosition() + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//
+//        }
+//        for (int i = 0; i < l.getCount(); i++) {
+//
+//            if (savedInstanceState.getBoolean(Integer.toString(i))) {
+//                Log.i("final", "Item " + i + ": has a set key value pair, is type :  ");
+//                Object v = l.getChildAt(i);
+////            Log.i("final", "Item " + i + ": ");
+//                if (v == null){
+//                    Log.i("final", "View IS DEAD ");
+//                }
+//                if (v instanceof LinearLayout) {
+//                    Log.i("final", "**Item " + i + ": is a linear layout");
+//
+//                    LinearLayout lindog = (LinearLayout) v;
+//                    for (int k = 0; k < lindog.getChildCount(); k++) {
+//                        View v3 = (View) lindog.getChildAt(k);
+//                        if (v3 instanceof CheckBox) {
+//                            CheckBox checkBox = (CheckBox) v3;
+//                            checkBox.setChecked(true);
+//                        }
+//
+//                    }
+//                    //                CheckBox box = (CheckBox) lindog.getChildAt(1);
+//                    //                box.setChecked(true);
+//                    Log.i("Save State", "*&&&&&&&&&&&&&&&^%$#$%^&*(*&^%$#@#$ " + i);
+//                }
+//            }
+//        }
 //        for (int i = 0; i < l.getCount(); i++){
 //            View v = l.getChildAt(i);
 //            CheckBox checkBox = (CheckBox) v.findViewById(R.id.completed_check);
