@@ -17,17 +17,22 @@ import android.widget.Toast;
 import com.example.student.bucketlist2.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class ListMainActivity extends AppCompatActivity {
 
     CustomItemAdapter customAdapter;
 
+    final ArrayList<Integer> checkedArraylist = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_main);
-
+//        if (checkedArraylist == null){
+//            checkedArraylist = new ArrayList<>();
+//        }
         final ArrayList<customItem> customItems = customItem.getItems();
         customAdapter = new CustomItemAdapter(this, customItems);
 
@@ -54,35 +59,21 @@ public class ListMainActivity extends AppCompatActivity {
         l.post(new Runnable() {
             public void run() {
                 Log.i("real", "Value of Last position: " + Integer.toString(l.getLastVisiblePosition()));
-//                if (savedInstanceState != null) {
-//                    for (int i = 0; i < l.getLastVisiblePosition() - l.getFirstVisiblePosition(); i++) {
-//
-//                        if (savedInstanceState.getBoolean(Integer.toString(i))) {
-//                            Log.i("final", "Item " + i + ": has a set key value pair, is type :  ");
-//                            View v = (View) l.getChildAt(i);
-//                            //            Log.i("final", "Item " + i + ": ");
-//                            if (v == null) {
-//                                Log.i("final", "View IS DEAD ");
-//                            }
-//                            if (v instanceof LinearLayout) {
-//                                Log.i("final", "**Item " + i + ": is a linear layout");
-//
-//                                LinearLayout lindog = (LinearLayout) v;
-//                                for (int k = 0; k < lindog.getChildCount(); k++) {
-//                                    View v3 = (View) lindog.getChildAt(k);
-//                                    if (v3 instanceof CheckBox) {
-//                                        CheckBox checkBox = (CheckBox) v3;
-//                                        checkBox.setChecked(true);
-//                                    }
-//
-//                                }
-//                                //                CheckBox box = (CheckBox) lindog.getChildAt(1);
-//                                //                box.setChecked(true);
-//                                Log.i("Save State", "*&&&&&&&&&&&&&&&^%$#$%^&*(*&^%$#@#$ " + i);
-//                            }
-//                        }
-//                    }
-//                }
+                for (int i = 0; i < l.getLastVisiblePosition() - l.getFirstVisiblePosition(); i++) {
+                    Log.i("real", "Value of Last position: " + i + " **** " + checkedArraylist);
+                    View v = (View) l.getChildAt(i);
+                    if (v instanceof LinearLayout) {
+                        LinearLayout lin = (LinearLayout) v;
+                        for (int j = 0; j < lin.getChildCount(); j++) {
+                            View v2 = (View) lin.getChildAt(j);
+                            if (v2 instanceof CheckBox) {
+                                Log.i("real", "CheckBox at: " + i + ", Value : " + ((CheckBox) v2).isChecked());
+                                if (checkedArraylist.contains(i))
+                                    ((CheckBox) v2).setChecked(true);
+                            }
+                        }
+                    }
+                }
             }
         });
 
@@ -97,6 +88,7 @@ public class ListMainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.i("Bucket List", "List Activity Main onResume");
+
     }
 
     @Override
@@ -145,11 +137,14 @@ public class ListMainActivity extends AppCompatActivity {
                 for (int j = 0; j < lin.getChildCount(); j++) {
                     View v2 = (View) lin.getChildAt(j);
                     if (v2 instanceof CheckBox) {
-//                        Log.i("Save State", "CheckBox at: " + i + ", Value : "
-//                                + ((CheckBox)v2).isChecked());
-                        savedInstanceState.putBoolean(Integer.toString(i), ((CheckBox)v2).isChecked());
+                        Log.i("real", "CheckBox !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!at: " + i + ", Value : "
+                                + ((CheckBox) v2).isChecked());
+                        savedInstanceState.putBoolean(Integer.toString(i), ((CheckBox) v2).isChecked());
+                        if ( ((CheckBox)v2).isChecked() ) {
+                            checkedArraylist.add(i);
+                            Log.i("real", "ADDING TO ARRAYLIST: " + i + ", arraylist: " + checkedArraylist);
 
-
+                        }
                     } else if (v2 instanceof TextView) {
 //                        Log.i("Save State", "TextView at: " + i +
 //                        ", Value of : " + ((TextView)v2).getText());
