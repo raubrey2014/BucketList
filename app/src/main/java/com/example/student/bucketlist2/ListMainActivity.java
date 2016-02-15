@@ -43,13 +43,13 @@ public class ListMainActivity extends AppCompatActivity {
                     "false"};
             Set<String> mySet = new HashSet<>(Arrays.asList(words));
             editor.putStringSet("0", mySet);
-            String[] words1 = {"Streak The Lawn",
-                    "Run up and down the lawn without clothes, make lots of merry",
+            String[] words1 = {"Go to Bodo's",
+                    "Try to get the first ticket at Bodo's",
                     "false"};
             Set<String> mySet1 = new HashSet<>(Arrays.asList(words1));
             editor.putStringSet("1", mySet1);
-            String[] words2 = {"Streak The Lawn",
-                    "Run up and down the lawn without clothes, make lots of merry",
+            String[] words2 = {"Go to Monticello",
+                    "Visit T.J's home on top of the hill and pay your respects to your god",
                     "false"};
             Set<String> mySet2 = new HashSet<>(Arrays.asList(words2));
             editor.putStringSet("2", mySet2);
@@ -57,14 +57,37 @@ public class ListMainActivity extends AppCompatActivity {
                     "Run up and down the lawn without clothes, make lots of merry",
                     "false"};
             Set<String> mySet3 = new HashSet<>(Arrays.asList(words3));
-            editor.putStringSet("2", mySet2);
-            editor.putString("3", "Streak The Lawn");
-            editor.putString("4", "Go to Bodo's");
-            editor.putString("5", "Go to Monticello");
-            editor.putString("6", "Streak The Lawn");
-            editor.putString("7", "Go to Bodo's");
-            editor.putString("8", "Go to Monticello");
-            editor.putString("9", "Go to Monticello");
+            editor.putStringSet("3", mySet3);
+            String[] words4 = {"Go to a VG concert",
+                    "Go to a VG concert and listen to the second best a capella group in town",
+                    "false"};
+            Set<String> mySet4 = new HashSet<>(Arrays.asList(words4));
+            editor.putStringSet("4", mySet4);
+            String[] words5 = {"Go to a Hullubahoos Concert",
+                    "Go to a Hullubahoos Concert and listen to the best a capella group in town",
+                    "false"};
+            Set<String> mySet5 = new HashSet<>(Arrays.asList(words5));
+            editor.putStringSet("5", mySet5);
+            String[] words6 = {"Hang out on Mad Bowl",
+                    "Toss a frisbee or run your dog on Mad Bowl, the epicenter of all things Greek",
+                    "false"};
+            Set<String> mySet6 = new HashSet<>(Arrays.asList(words6));
+            editor.putStringSet("6", mySet6);
+            String[] words7 = {"Run to Lambeth Field",
+                    "Make your way to one of the coolest places in the world, Lamb(Mac)beth field",
+                    "false"};
+            Set<String> mySet7 = new HashSet<>(Arrays.asList(words7));
+            editor.putStringSet("7", mySet7);
+            String[] words8 = {"Attain a lawn-room",
+                    "Infiltrate all social circles before third year and gain entrance to the greatest secret society on grounds, the lawn-roomies",
+                    "false"};
+            Set<String> mySet8 = new HashSet<>(Arrays.asList(words8));
+            editor.putStringSet("8", mySet8);
+            String[] words9 = {"Sneak into the rotunda",
+                    "Figure out a way to get into one of the oldest structures of TJ's great school",
+                    "false"};
+            Set<String> mySet9 = new HashSet<>(Arrays.asList(words9));
+            editor.putStringSet("9", mySet9);
 
             editor.commit();
         }
