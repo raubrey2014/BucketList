@@ -88,13 +88,6 @@ public class ListMainActivity extends AppCompatActivity {
                     "false"};
             Set<String> mySet9 = new HashSet<>(Arrays.asList(words9));
             editor.putStringSet("9", mySet9);
-            editor.putString("3", "Streak The Lawn");
-            editor.putString("4", "Go to Bodo's");
-            editor.putString("5", "Go to Monticello");
-            editor.putString("6", "Streak The Lawn");
-            editor.putString("7", "Go to Bodo's");
-            editor.putString("8", "Go to Monticello");
-            editor.putString("9", "Go to Monticello");
 
             editor.commit();
         }
