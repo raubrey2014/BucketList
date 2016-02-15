@@ -1,79 +1,105 @@
 package com.example.student.bucketlist2;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.student.bucketlist2.R;
 import com.example.student.bucketlist2.customItem;
+import com.google.gson.Gson;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CustomItemAdapter extends ArrayAdapter<customItem>{
-//code borrowed from this blog: http://lalit3686.blogspot.com/2012/06/today-i-am-going-to-show-how-to-deal.html
+    //code borrowed from this blog: http://lalit3686.blogspot.com/2012/06/today-i-am-going-to-show-how-to-deal.html
+    private final List<customItem> list;
+
     public CustomItemAdapter(Context context, ArrayList<customItem> list){
         super(context, 0, list);
+        this.list = list;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent){
-        customItem customItem = getItem(position);
-//added stuff
-        ViewHolder viewHolder = null;
-//end added stuff
-        if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.complex_list_item, parent, false);
-//Added stuff
-            viewHolder = new ViewHolder();
-            viewHolder.text = (TextView) convertView.findViewById(R.id.label);
-            viewHolder.checkbox = (CheckBox) convertView.findViewById(R.id.check);
-            viewHolder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//    public View getView(int position, View convertView, ViewGroup parent) {
+//        customItem customItem = getItem(position);
+//
+//        if (convertView == null) {
+//            convertView = LayoutInflater.from(getContext()).inflate(R.layout.complex_list_item, parent, false);
+//
+//        }
+//        TextView itemText = (TextView) convertView.findViewById(R.id.complex_list_item);
+//        CheckBox itemCheck = (CheckBox) convertView.findViewById(R.id.completed_check);
+//
+//        itemText.setText(customItem.text);
+//        itemCheck.setChecked(customItem.checked);
+//        itemCheck.setTag(position);
+//
+//        return convertView;
+//    }
 
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    int getPosition = (Integer) buttonView.getTag();  // Here we get the position that we have set for the checkbox using setTag.
-                    list.get(getPosition).setSelected(buttonView.isChecked()); // Set the value of checkbox to maintain its state.
-                }
-            });
-            convertView.setTag(viewHolder);
-            convertView.setTag(R.id.label, viewHolder.text);
-            convertView.setTag(R.id.check, viewHolder.checkbox);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-        viewHolder.checkbox.setTag(position); // This line is important.
+public View getView(int position, View convertView, ViewGroup parent) {
+    customItem customItem = getItem(position);
+    TextView itemText = null;
+    CheckBox itemCheck = null;
+    if (convertView == null) {
+        convertView = LayoutInflater.from(getContext()).inflate(R.layout.complex_list_item, parent, false);
+        itemText = (TextView) convertView.findViewById(R.id.complex_list_item);
+        itemCheck = (CheckBox) convertView.findViewById(R.id.completed_check);
+        Log.i("real", "In get view for bundle------" + position);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Gson gson = new Gson();
+        String json = sharedPref.getString(Integer.toString(position), "default");
+        bundleObject bundle = gson.fromJson(json, bundleObject.class);
+        itemCheck.setChecked(bundle.getChecked());
 
-        viewHolder.text.setText(list.get(position).getName());
-        viewHolder.checkbox.setChecked(list.get(position).isSelected());
-//end added stuff
-        return convertView;
+        itemCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                int getPosition = (Integer) buttonView.getTag();
+//                Log.i("final", "Here is on check changed: position, then bool--> "+ getPosition + " " + isChecked );
+                (list.get(getPosition)).setChecked(buttonView.isChecked());
+            }
+        });
     }
+    else{
+        itemText = (TextView) convertView.findViewById(R.id.complex_list_item);
+        itemCheck = (CheckBox) convertView.findViewById(R.id.completed_check);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Gson gson = new Gson();
+        String json = sharedPref.getString(Integer.toString(position), "default");
+        bundleObject bundle = gson.fromJson(json, bundleObject.class);
+        itemCheck.setChecked(bundle.getChecked());
+        Log.i("real", "In the else -----" + position);
+    }
+    itemText.setText(customItem.text);
+    itemCheck.setTag(position);
+
+
+
+    return convertView;
 }
-        }
 
-        TextView itemText = (TextView) convertView.findViewById(R.id.complex_list_item);
-        CheckBox itemCheck = (CheckBox) convertView.findViewById(R.id.completed_check);
 
-        itemText.setText(customItem.text);
-        itemCheck.setChecked(customItem.checked);
-        itemCheck.setTag(position);
-
-        return convertView;
-    }
-
-    public boolean getChecked(int position){
+public boolean getChecked(int position){
         customItem exampleItem = getItem(position);
         return exampleItem.checked;
-    }
+        }
 
-    public String getTextString(int position){
+public String getTextString(int position){
         return getItem(position).text;
-    }
+        }
 
-    public void setChecked(int position, boolean b){
+public void setChecked(int position, boolean b){
         getItem(position).setChecked(b);
-    }
-}
+        }
+        }

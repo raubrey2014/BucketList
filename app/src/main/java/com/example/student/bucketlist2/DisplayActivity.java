@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import org.w3c.dom.Text;
 
 import java.util.HashSet;
@@ -26,18 +28,21 @@ public class DisplayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_display);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Intent intent = getIntent();
-        String message = intent.getStringExtra("test");
+        final String message = intent.getStringExtra("test");
         TextView textView1 = (TextView) findViewById(R.id.current_item_title);
         TextView textView2 = (TextView) findViewById(R.id.current_item_short);
         TextView textView3 = (TextView) findViewById(R.id.current_item_long);
 
         String str = "";
-        Set<String> title = sharedPref.getStringSet(message, new HashSet<String>());
+        Gson gson = new Gson();
+        String json = sharedPref.getString(message, "default");
+        bundleObject bundle = gson.fromJson(json, bundleObject.class);
+
         str = "UVa Bucket List Item " + message + "!";
 
-        String shortD = title.toArray()[2].toString();
-        String longD = "Your goal: " + title.toArray()[1].toString();
-        boolean completed = Boolean.parseBoolean(title.toArray()[0].toString());
+        String shortD = bundle.getShortDescription();
+        String longD = "Your goal: " + bundle.getLongDescription();
+        boolean completed = bundle.getChecked();
         textView1.setText(str);
         textView2.setText(shortD);
         textView3.setText(longD);
@@ -62,10 +67,13 @@ public class DisplayActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = sharedPref.edit();
-                    String[] words = {"",
-                            "Run up and down the lawn without clothes, make lots of merry",
-                            "false"};
 
+                    Gson gson = new Gson();
+                    String json = sharedPref.getString(message, "default");
+                    bundleObject bundle = gson.fromJson(json, bundleObject.class);
+                    String jsonReturn = gson.toJson(new bundleObject(true, bundle.getShortDescription(), bundle.getLongDescription()));
+                    editor.putString(message, jsonReturn);
+                    editor.commit();
                 }
             });
             linearLayout.addView(button);
