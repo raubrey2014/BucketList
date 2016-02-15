@@ -44,7 +44,7 @@ public class DisplayActivity extends AppCompatActivity {
         String longD = bundle.getLongDescription();
         String diff = bundle.getDifficulty();
         boolean completed = bundle.getChecked();
-        textView1.setText(shortD);
+        textView1.setText(shortD + ", Item: #" + message);
         textView2.setText(diff);
         if(diff.equals("Hard")){
             textView2.setTextColor(Color.RED);
