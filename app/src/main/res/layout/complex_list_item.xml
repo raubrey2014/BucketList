@@ -17,9 +17,8 @@
         android:layout_height="match_parent"
         android:layout_weight="0.1"
         android:onClick="onCheckboxClicked"
-        android:saveEnabled="false"
         android:focusable="false"
-        android:clickable="false"/>
+        />
 
 
 </LinearLayout>

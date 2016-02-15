@@ -31,6 +31,7 @@ public class CustomItemAdapter extends ArrayAdapter<customItem>{
 
         itemText.setText(customItem.text);
         itemCheck.setChecked(customItem.checked);
+        itemCheck.setTag(position);
 
         return convertView;
     }
