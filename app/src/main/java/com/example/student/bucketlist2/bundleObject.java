@@ -7,11 +7,13 @@ public class bundleObject {
     private boolean checked;
     private String shortDescription;
     private String longDescription;
+    private String difficulty;
 
-    public bundleObject(boolean b, String shortDescription, String longDescription){
+    public bundleObject(boolean b, String shortDescription, String longDescription, String difficulty){
         this.checked = b;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
+        this.difficulty = difficulty;
     }
 
     public boolean getChecked(){
@@ -30,6 +32,8 @@ public class bundleObject {
         return this.shortDescription;
     }
 
-
+    public String getDifficulty(){
+        return this.difficulty;
+    }
 
 }

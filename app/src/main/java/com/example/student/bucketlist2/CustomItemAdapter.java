@@ -30,22 +30,7 @@ public class CustomItemAdapter extends ArrayAdapter<customItem>{
         this.list = list;
     }
 
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//        customItem customItem = getItem(position);
-//
-//        if (convertView == null) {
-//            convertView = LayoutInflater.from(getContext()).inflate(R.layout.complex_list_item, parent, false);
-//
-//        }
-//        TextView itemText = (TextView) convertView.findViewById(R.id.complex_list_item);
-//        CheckBox itemCheck = (CheckBox) convertView.findViewById(R.id.completed_check);
-//
-//        itemText.setText(customItem.text);
-//        itemCheck.setChecked(customItem.checked);
-//        itemCheck.setTag(position);
-//
-//        return convertView;
-//    }
+
 
 public View getView(int position, View convertView, ViewGroup parent) {
     customItem customItem = getItem(position);
@@ -102,4 +87,4 @@ public String getTextString(int position){
 public void setChecked(int position, boolean b){
         getItem(position).setChecked(b);
         }
-        }
+}

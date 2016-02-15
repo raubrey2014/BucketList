@@ -43,25 +43,25 @@ public class ListMainActivity extends AppCompatActivity {
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = sharedPref.edit();
 
-            String json = gson.toJson(new bundleObject(false, "Streak The Lawn", "Run up and down the lawn without clothes, make lots of merry"));
+            String json = gson.toJson(new bundleObject(false, "Streak The Lawn", "Run up and down the lawn without clothes, make lots of merry", "Easy"));
             editor.putString("0", json);
-            json = gson.toJson(new bundleObject(false, "Go to Bodo's", "Try to get the first ticket at Bodo's"));
+            json = gson.toJson(new bundleObject(false, "Go to Bodo's", "Try to get the first ticket at Bodo's", "Easy"));
             editor.putString("1", json);
-            json = gson.toJson(new bundleObject(false, "Go to Monticello", "Visit T.J's home on top of the hill and learn more about the founder of our University"));
+            json = gson.toJson(new bundleObject(false, "Go to Monticello", "Visit T.J's home on top of the hill and learn more about the founder of our University", "Easy"));
             editor.putString("2", json);
-            json = gson.toJson(new bundleObject(false, "Go on Boat Cruise", "Make a fool of yourself dancing on with strangers on a boat ride in D.C."));
+            json = gson.toJson(new bundleObject(false, "Go on Boat Cruise", "Make a fool of yourself dancing on with strangers on a boat ride in D.C.", "Medium"));
             editor.putString("3", json);
-            json = gson.toJson(new bundleObject(false, "Get Take it Away", "Sourdough, ham and turkey, cheddar, pickles, sprouts, sun-dried tomatoes, and of course house sauce. Enough said."));
+            json = gson.toJson(new bundleObject(false, "Get Take it Away", "Sourdough, ham and turkey, cheddar, pickles, sprouts, sun-dried tomatoes, and of course house sauce. Enough said.", "Easy"));
             editor.putString("4", json);
-            json = gson.toJson(new bundleObject(false, "Give Dean Groves a High Five", "The always energetic Dean Groves once broke the world record for the most high-fives in a few hours. Give him one more!"));
+            json = gson.toJson(new bundleObject(false, "Give Dean Groves a High Five", "The always energetic Dean Groves once broke the world record for the most high-fives in a few hours. Give him one more!", "Hard"));
             editor.putString("5", json);
-            json = gson.toJson(new bundleObject(false, "Go to Lighting of the Lawn", "Take part in the iconic light show on Thomas Jefferson's famous Rotunda. Look out for quadcopters taking the best footage!"));
+            json = gson.toJson(new bundleObject(false, "Go to Lighting of the Lawn", "Take part in the iconic light show on Thomas Jefferson's famous Rotunda. Look out for quadcopters taking the best footage!", "Medium"));
             editor.putString("6", json);
-            json = gson.toJson(new bundleObject(false, "Eat dinner in the Rotunda", "Suit and tie, dress and heels. Enjoy a slightly not wonderful meal put on by UVa Dining in the ever wonderful Rotunda."));
+            json = gson.toJson(new bundleObject(false, "Eat dinner in the Rotunda", "Suit and tie, dress and heels. Enjoy a slightly not wonderful meal put on by UVa Dining in the ever wonderful Rotunda.", "Hard"));
             editor.putString("7", json);
-            json = gson.toJson(new bundleObject(false, "Go to West Range", "What used to be a hang out space for the original attendees of UVa is now a food stop. Make sure and try it out."));
+            json = gson.toJson(new bundleObject(false, "Go to West Range", "What used to be a hang out space for the original attendees of UVa is now a food stop. Make sure and try it out.", "Hard"));
             editor.putString("8", json);
-            json = gson.toJson(new bundleObject(false, "Study in Clarke Library", "The entrance alone to this building will keep you from concentrating. Good luck!"));
+            json = gson.toJson(new bundleObject(false, "Study in Clarke Library", "The entrance alone to this building will keep you from concentrating. Good luck!", "Easy"));
             editor.putString("9", json);
 
             editor.commit();
@@ -108,7 +108,6 @@ public class ListMainActivity extends AppCompatActivity {
         l.post(new Runnable() {
             public void run() {
                 Log.i("real", "Value of Last position: " + Integer.toString(l.getLastVisiblePosition()));
-//                for (int i = 0; i < l.getLastVisiblePosition() - l.getFirstVisiblePosition() + 1; i++) {
                 for (int i = 0; i < l.getCount(); i++) {
 //                    Log.i("real", "Value of Last position: " + i + " **** " + checkedArraylist);
                     View v = (View) l.getChildAt(i);
@@ -177,14 +176,11 @@ public class ListMainActivity extends AppCompatActivity {
             Gson gson = new Gson();
             bundleObject bundle = gson.fromJson(stringSet, bundleObject.class);
             //setup the new
-//            String[] words = {stringSet.toArray()[2].toString(),
-//                    stringSet.toArray()[1].toString(),
-//                    "true"};
             //setup the editor
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = sharedPref.edit();
             //initialize settings and put in shared
-            String jsonReturn = gson.toJson(new bundleObject(true, bundle.getShortDescription(), bundle.getLongDescription() ));
+            String jsonReturn = gson.toJson(new bundleObject(true, bundle.getShortDescription(), bundle.getLongDescription(),bundle.getDifficulty() ));
 
             editor.putString(s, jsonReturn);
             editor.commit();
