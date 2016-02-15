@@ -68,6 +68,9 @@ public class ListMainActivity extends AppCompatActivity {
 
             editor.commit();
         }
+        else{
+
+        }
         setContentView(R.layout.activity_list_main);
         ArrayList<customItem> customItems = customItem.getItems();
         customAdapter = new CustomItemAdapter(this, customItems);
@@ -154,12 +157,27 @@ public class ListMainActivity extends AppCompatActivity {
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-        String s = Integer.toString((int)view.getTag());
-        Log.i("check!", s);
+
+
 
         // Check which checkbox was clicked
         if (checked){
             view.setEnabled(false);
+            String s = Integer.toString((int)view.getTag());
+            Log.i("check!", s);
+            //Get the previous settings for this item
+            Set<String> stringSet = PreferenceManager.getDefaultSharedPreferences(this).getStringSet(s, new HashSet<String>());
+            //setup the new
+            String[] words = {stringSet.toArray()[2].toString(),
+                    stringSet.toArray()[1].toString(),
+                    "true"};
+            //setup the editor
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            //initialize settings and put in shared
+            Set<String> mySet2 = new HashSet<>(Arrays.asList(words));
+            editor.putStringSet(s, mySet2);
+            editor.commit();
         }
     }
 
